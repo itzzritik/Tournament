@@ -1,0 +1,15 @@
+.player {
+	display: flex;
+	gap: 8px;
+
+	.name {
+		background: unset;
+	}
+	.age {
+		width: 150px;
+		background: unset;
+	}
+	.save {
+		background: rgb(var(--colorBrandAccentRgb) / 20%);
+	}
+}
