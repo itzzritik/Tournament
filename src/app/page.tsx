@@ -3,10 +3,10 @@
 import { UIEvent, useState } from 'react';
 
 import clsx from 'clsx';
-import { Spinner } from 'xtreme-ui';
+import { Icon, Spinner } from 'xtreme-ui';
 
 import { useData } from '#components/context/useContext';
-import Player from '#components/layout/Player';
+import Team from '#components/layout/Team';
 import ThemeController from '#components/layout/ThemeController';
 
 import styles from './page.module.scss';
@@ -20,37 +20,29 @@ export default function Home () {
 		return setFloatHeader(false);
 	};
 
-	if (tournamentLoading) return <Spinner fullpage label='Fetching Games...' />;
-
 	return (
 		<main className={clsx(styles.home, floatHeader && styles.float)} onScroll={onScroll}>
 			<div className={styles.header}>
-				<p>Tournament Dashboard</p>
+				<Icon code='f45f' size={36} type='duotone' />
+				<p>Tournaments</p>
 				<ThemeController />
 			</div>
 			<div className={styles.content}>
 				{
-					tournament?.map?.((game, i) => (
-						<div className={styles.game} key={i}>
-							<p className={styles.gameTitle}>{game.game}</p>
-							<div className={styles.teams}>
-								{
-									game?.teams?.map?.((team, i) => (
-										<div className={styles.team} key={i}>
-											<p className={styles.teamTitle}>{team.team_name}</p>
-											<div className={styles.players}>
-												{
-													team?.players?.map?.((player, i) => (
-														<Player key={i} player={player} />
-													))
-												}
-											</div>
-										</div>
-									))
-								}
+					tournamentLoading
+						? <Spinner className={styles.spinner} fullpage label='Fetching Games...' />
+						: tournament?.map?.((game, gameIndex) => (
+							<div className={styles.game} key={gameIndex}>
+								<p className={styles.gameTitle}>{game.game}</p>
+								<div className={styles.teams}>
+									{
+										game?.teams?.map?.((team, teamIndex) => (
+											<Team key={teamIndex} team={team} gameIndex={gameIndex} teamIndex={teamIndex} />
+										))
+									}
+								</div>
 							</div>
-						</div>
-					))
+						))
 				}
 			</div>
 		</main>

@@ -1,6 +1,6 @@
 export type TPlayer = {
 	name: string,
-	age: number,
+	age: string,
 }
 export type TTeam = {
 	team_name: string,

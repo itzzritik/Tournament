@@ -1,6 +1,8 @@
 .player {
+	width: fit-content;
 	display: flex;
-	gap: 8px;
+	align-items: center;
+	gap: 16px;
 
 	.name {
 		background: unset;
@@ -10,6 +12,9 @@
 		background: unset;
 	}
 	.save {
-		background: rgb(var(--colorBrandAccentRgb) / 20%);
+	}
+	.cancel {
+		margin-left: -8px;
+		margin-right: -8px;
 	}
 }
