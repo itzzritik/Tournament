@@ -20,7 +20,7 @@ export default function ThemeController () {
 
 	return (
 		<>
-			<ToastContainer position='top-center' theme={themeScheme === 'light' ? 'light' : 'dark'} />
+			<ToastContainer position='bottom-right' theme={themeScheme === 'light' ? 'light' : 'dark'} />
 			<Button type='secondary' size='mini' label={themeScheme} icon={ThemeIcon[themeScheme]} iconType='solid' onClick={onClick} />
 		</>
 	);
