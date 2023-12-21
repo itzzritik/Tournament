@@ -23,14 +23,11 @@ export default function ThemeController () {
 
 	useEffect(() => {
 		try {
-			const scheme = (localStorage.getItem('xThemeScheme'))?.replaceAll('"', '') as 'light' | 'dark' | 'system';
-			console.log(scheme);
+			const scheme = (localStorage.getItem('xThemeScheme') ?? 'system')?.replaceAll('"', '') as 'light' | 'dark' | 'system';
 			setThemeScheme(scheme);
 			setThemeColor('violet');
 		}
-		catch (e) {
-			console.log();
-		}
+		catch (e) { console.log(); }
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 

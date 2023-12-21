@@ -14,9 +14,14 @@
 	.add {
 		width: 126px;
 	}
-	.save {
-	}
 	.cancel {
 		margin-left: -8px;
+	}
+	.delete {
+		margin-left: -8px;
+		
+		&:hover {
+			background: rgb(var(--colorAlertErrorRGB));
+		}
 	}
 }

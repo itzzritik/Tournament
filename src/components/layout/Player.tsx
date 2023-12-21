@@ -44,7 +44,7 @@ export default function Player ({ player, newPlayer = false, onSave, onDelete }:
 			{
 				!newPlayer &&
 				<Icon
-					className={styles.cancel}
+					className={saveDisabled ? styles.delete : styles.cancel}
 					code={saveDisabled ? 'f1f8' : 'f1da'}
 					type='light'
 					size={14}

@@ -31,7 +31,7 @@ export default function Home () {
 			<div className={styles.content}>
 				{
 					tournamentLoading
-						? <Spinner className={styles.spinner} fullpage label='Fetching Games...' />
+						? <Spinner className={styles.spinner} fullpage label='Fetching data...' />
 						: tournament?.map?.((game, gameIndex) => (
 							<div className={styles.game} key={gameIndex}>
 								<p className={styles.gameTitle}>{game.game}</p>
