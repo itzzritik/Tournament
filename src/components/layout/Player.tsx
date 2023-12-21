@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 
 import { Button, Icon, Textfield } from 'xtreme-ui';
 
@@ -6,11 +6,17 @@ import { TPlayer } from '../../types/tournament';
 
 import styles from './player.module.scss';
 
-export default function Player ({ player, onSave }: TPlayerProps) {
+export default function Player ({ player, newPlayer = false, onSave, onDelete }: TPlayerProps) {
 	const [localName, setLocalName] = useState(player?.name);
-	const [localAge, setLocalAge] = useState(player?.age);
+	const [localAge, setLocalAge] = useState(player?.age.toString());
 
 	const saveDisabled = localName === player?.name && localAge.toString() === player?.age.toString();
+	const addDisabled = !localName || !localAge.toString();
+
+	useLayoutEffect(() => {
+		setLocalName(player?.name);
+		setLocalAge(player?.age.toString());
+	}, [player]);
 
 	return (
 		<div className={styles.player}>
@@ -29,20 +35,21 @@ export default function Player ({ player, onSave }: TPlayerProps) {
 				onChange={(e) => setLocalAge(e.target.value.trim().toString())}
 			/>
 			<Button
-				className={styles.save}
-				label='save'
+				className={newPlayer ? styles.add : styles.save}
+				label={newPlayer ? 'Add' : 'save'}
 				type='primary'
-				disabled={saveDisabled}
+				disabled={newPlayer ? addDisabled : saveDisabled}
 				onClick={() => onSave(localName, localAge)}
 			/>
 			{
-				!saveDisabled &&
+				!newPlayer &&
 				<Icon
 					className={styles.cancel}
-					code='f1da'
-					type='regular'
-					size={12}
+					code={saveDisabled ? 'f1f8' : 'f1da'}
+					type='light'
+					size={14}
 					onClick={() => {
+						if (saveDisabled) return onDelete?.();
 						setLocalName(player?.name);
 						setLocalAge(player?.age);
 					}}
@@ -54,5 +61,7 @@ export default function Player ({ player, onSave }: TPlayerProps) {
 
 type TPlayerProps = {
 	player: TPlayer
+	newPlayer?: boolean
 	onSave: (name: string, age: string) => void
+	onDelete?: () => void
 }

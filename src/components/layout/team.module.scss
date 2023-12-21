@@ -1,11 +1,18 @@
 .team {
-	width: fit-content;
 
-	.teamTitle {
-		font-size: 18px;
-		font-variation-settings: "wdth" 75, "wght" 400;
-		padding: 5px 0;
+	.header {
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+
+		.teamTitle {
+			font-size: 18px;
+			font-variation-settings: "wdth" 75, "wght" 400;
+			padding: 5px 0;
+		}
 	}
+	
 	.players {
 		width: fit-content;
 		display: flex;

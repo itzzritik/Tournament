@@ -6,15 +6,36 @@ import { toast } from 'react-toastify';
 import { TTournament } from '../../types/tournament';
 
 const DataDefault: TDataInitialType = {
+	fetchData: () => {},
 	tournament: [],
 	tournamentLoading: true,
+	addPlayer: () => {},
 	updatePlayer: () => {},
+	deletePlayer: () => {},
 };
 
 export const DataContext = createContext(DataDefault);
 export const DataProvider = ({ children }: TDataProviderProps) => {
 	const [tournament, setTournament] = useState(DataDefault.tournament);
 	const [tournamentLoading, setTournamentLoading] = useState(DataDefault.tournamentLoading);
+
+	const deletePlayer = (gameIndex: number, teamIndex: number, playerIndex: number) => {
+		setTournament((data) => {
+			const clone = cloneDeep(data);
+			clone[gameIndex].teams[teamIndex].players.splice(playerIndex, 1);
+			return clone;
+		});
+		toast.success('Player Deleted');
+	};
+
+	const addPlayer = (name: string, age: string, gameIndex: number, teamIndex: number) => {
+		setTournament((data) => {
+			const clone = cloneDeep(data);
+			clone[gameIndex].teams[teamIndex].players.unshift({ name, age });
+			return clone;
+		});
+		toast.success('New Player Added');
+	};
 
 	const updatePlayer = (name: string, age: string, gameIndex: number, teamIndex: number, playerIndex: number) => {
 		setTournament((data) => {
@@ -45,7 +66,7 @@ export const DataProvider = ({ children }: TDataProviderProps) => {
 	}, []);
 
 	return (
-		<DataContext.Provider value={{ tournament, tournamentLoading, updatePlayer }}>
+		<DataContext.Provider value={{ fetchData, tournament, tournamentLoading, addPlayer, updatePlayer, deletePlayer }}>
 			{children}
 		</DataContext.Provider>
 	);
@@ -56,7 +77,10 @@ export type TDataProviderProps = {
 }
 
 export type TDataInitialType = {
+	fetchData: () => void
 	tournament: TTournament,
 	tournamentLoading: boolean,
+	addPlayer: (name: string, age: string, gameIndex: number, teamIndex: number) => void
 	updatePlayer: (name: string, age: string, gameIndex: number, teamIndex: number, playerIndex: number) => void
+	deletePlayer: (gameIndex: number, teamIndex: number, playerIndex: number) => void
 }

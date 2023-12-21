@@ -3,7 +3,7 @@
 import { UIEvent, useState } from 'react';
 
 import clsx from 'clsx';
-import { Icon, Spinner } from 'xtreme-ui';
+import { Button, Icon, Spinner } from 'xtreme-ui';
 
 import { useData } from '#components/context/useContext';
 import Team from '#components/layout/Team';
@@ -12,7 +12,7 @@ import ThemeController from '#components/layout/ThemeController';
 import styles from './page.module.scss';
 
 export default function Home () {
-	const { tournament, tournamentLoading } = useData();
+	const { fetchData, tournament, tournamentLoading } = useData();
 	const [floatHeader, setFloatHeader] = useState(false);
 
 	const onScroll = (event: UIEvent<HTMLDivElement>) => {
@@ -25,6 +25,7 @@ export default function Home () {
 			<div className={styles.header}>
 				<Icon code='f45f' size={36} type='duotone' />
 				<p>Tournaments</p>
+				<Button className={styles.refresh} type='secondary' icon='f021' iconType='solid' size='mini' onClick={fetchData} />
 				<ThemeController />
 			</div>
 			<div className={styles.content}>
